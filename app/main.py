@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, Response
+from flask import Flask, render_template, request, redirect, url_for
 import json
 from .valApi import ValorantAPI
 
@@ -21,6 +21,10 @@ def home():
   # return '<h1>Hello World<h1>'
 
 #   return Response(json_res, mimetype="application/json")
+
+@app.route('/match_history', methods=['GET'])
+def redirect_to_login():
+  return redirect(url_for('home'))
 
 @app.route('/match_history', methods=['POST'])
 def display_match_history():
