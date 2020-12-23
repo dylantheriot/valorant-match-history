@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 import json
 from .valApi import ValorantAPI
+import time
 
 app = Flask(__name__)
 
@@ -46,6 +47,9 @@ def display_match_history():
       lp_change = ''
 
       tier = 'images/ranks/' + str(match['TierAfterUpdate']) + '.png'
+      epoch_time = match['MatchStartTime'] // 1000
+      date = time.strftime('%m-%d-%Y', time.localtime(epoch_time))
+
       before = match['TierProgressBeforeUpdate']
       after = match['TierProgressAfterUpdate']
 
@@ -57,7 +61,8 @@ def display_match_history():
           'game_outcome': game_outcome,
           'movement': match_movement_hash[match['CompetitiveMovement']],
           'status': 'win',
-          'tier': tier
+          'tier': tier,
+          'date': date
         }
       elif match['CompetitiveMovement'] == 'DEMOTED':
         lp_change = '-' + str(before + 100 - after)
@@ -67,7 +72,8 @@ def display_match_history():
           'game_outcome': game_outcome,
           'movement': match_movement_hash[match['CompetitiveMovement']],
           'status': 'loss',
-          'tier': tier
+          'tier': tier,
+          'date': date
         }
       else:
         if before < after:
@@ -85,7 +91,8 @@ def display_match_history():
           'game_outcome': game_outcome,
           'movement': match_movement_hash[match['CompetitiveMovement']],
           'status': status,
-          'tier': tier        
+          'tier': tier,
+          'date': date        
         }
       posts.append(match_data)
     # print(posts)
