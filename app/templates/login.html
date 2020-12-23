@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Login</title>
+</head>
+
+<body>
+
+  <h1>Sign In</h1>
+  <form action="{{ url_for('login') }}" method="post" autocomplete="off" enctype="application/x-www-form-urlencoded">
+    <input type="text" name="username">
+    <input type="password" name="password">
+    <input type="submit">
+  </form>
+
+</body>
+
+</html>
