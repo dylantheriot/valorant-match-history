@@ -2,6 +2,15 @@
 <html>
 
 <head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8WZGNCME04"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-8WZGNCME04');
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Match History</title>
@@ -17,10 +26,10 @@
     <div class="flex flex-col">
       {% for match in posts %}
       {% if match.status == "win" %}
-        <div class="flex flex-row bg-green-400 p-8 items-center text-l md:text-2xl">
-      {% else %}
+      <div class="flex flex-row bg-green-400 p-8 items-center text-l md:text-2xl">
+        {% else %}
         <div class="flex flex-row bg-red-400 p-8 items-center text-l md:text-2xl">
-      {% endif %}
+          {% endif %}
           <div class="progress{{ loop.index }}"></div>
           <div class="flex flex-row px-8 justify-evenly w-full">
             <p>{{match.lp_change}}</p>
@@ -29,7 +38,7 @@
           </div>
         </div>
         {% endfor %}
-      <!-- <div class="flex flex-row bg-red-400 p-8 items-center text-l md:text-2xl">
+        <!-- <div class="flex flex-row bg-red-400 p-8 items-center text-l md:text-2xl">
         <div class="progress2"></div>
         <div class="flex flex-row px-8 justify-evenly w-full">
           <p>-10</p>
@@ -38,20 +47,20 @@
         </div>
       </div> -->
 
+      </div>
     </div>
-  </div>
-  <script type="text/javascript" src="{{ url_for('static', filename = 'js/circle-progress.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename = 'js/circle-progress.js') }}"></script>
 
-  <script>
-    {% for match in posts %}
-    new CircleProgress('.progress{{ loop.index }}', {
-      max: 100,
-      value: {{match.current_lp}},
-      textFormat: 'vertical'
+    <script>
+      {% for match in posts %}
+      new CircleProgress('.progress{{ loop.index }}', {
+        max: 100,
+        value: {{ match.current_lp }},
+        textFormat: 'vertical'
     });
-    {% endfor %}
+      {% endfor %}
 
-  </script>
+    </script>
 
 </body>
 

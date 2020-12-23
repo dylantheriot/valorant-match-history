@@ -2,30 +2,41 @@
 <html>
 
 <head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8WZGNCME04"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-8WZGNCME04');
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login</title>
   <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
-<body >
+<body>
 
   <div class="container px-8 mx-auto text-2xl text-center m-8">
     <h1 class="mb-8">Login Using Your Riot Account</h1>
+    <p class="text-base my-2"><i>This site is not affiliated with Riot Games.</i></p>
     <div class="shadow-lg rounded p-8 w-full md:w-1/2 mx-auto">
-    <form action="{{ url_for('display_match_history') }}" method="post" autocomplete="off" enctype="application/x-www-form-urlencoded">
-      <div class="flex flex-col text-left">
-        <div class="my-4 flex flex-col">
-          <label>Username</label>
-          <input class="border py-2 px-3 text-grey-darkest" type="text" name="username">
+      <form action="{{ url_for('display_match_history') }}" method="post" autocomplete="off"
+        enctype="application/x-www-form-urlencoded">
+        <div class="flex flex-col text-left">
+          <div class="my-4 flex flex-col">
+            <label>Username</label>
+            <input class="border py-2 px-3 text-grey-darkest" type="text" name="username">
+          </div>
+          <div class="my-4 flex flex-col">
+            <label>Password</label>
+            <input class="border py-2 px-3 text-grey-darkest" type="password" name="password">
+          </div>
+          <input type="submit">
         </div>
-        <div class="my-4 flex flex-col">
-          <label>Password</label>
-          <input class="border py-2 px-3 text-grey-darkest" type="password" name="password">
-        </div>
-        <input type="submit">
-      </div>
-    </form>
+      </form>
     </div>
   </div>
 
