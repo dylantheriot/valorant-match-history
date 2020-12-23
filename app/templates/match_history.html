@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="match-bg">
 
 <head>
   <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -16,15 +16,16 @@
   <title>Match History</title>
   <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
   <link href="{{ url_for('static', filename = 'css/circle-progress.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/index.css') }}" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
 
 </head>
 
-<body style="background-color: #ECE8E1;">
+<body>
 
   <div class="container mx-auto px-4 text-center">
-    <h1 class="font-bold text-2xl my-8">Match History</h1>
+    <h1 class="font-bold my-8 valorant text-4xl">Match History</h1>
     <div class="flex flex-col">
       {% for match in posts %}
       {% if match.status == "win" %}
@@ -32,12 +33,18 @@
         {% else %}
         <div class="flex flex-row bg-red-400 p-8 items-center text-l md:text-2xl">
           {% endif %}
-          <div class="progress{{ loop.index }}"></div>
-          <div class="flex flex-row px-8 justify-evenly w-full">
-            <p>{{match.lp_change}}</p>
-            <h1>{{match.game_outcome}}</h1>
-            <p>{{match.movement}}</p>
+          <div>
+            <img class="w-1/2 h-auto" src="{{ url_for('static', filename=match.tier) }}" />
           </div>
+          <div class="progress{{ loop.index }}"></div>
+          <table class="w-full" style="text-align: center; vertical-align: middle; table-layout: fixed;">
+            <col style="width:33%" span="3" />
+            <tr>
+              <td>{{match.lp_change}}</td>
+              <td>{{match.game_outcome}}</td>
+              <td>{{match.movement}}</td>
+            </tr>
+          </table>
         </div>
         {% endfor %}
         <!-- <div class="flex flex-row bg-red-400 p-8 items-center text-l md:text-2xl">

@@ -29,3 +29,11 @@ html, body {
   -o-background-size: cover;
   background-size: cover;
 }
+
+.match-bg {
+  background: url(../images/match_history_background.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}

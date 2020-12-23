@@ -6,11 +6,11 @@ app = Flask(__name__)
 
 match_movement_hash = {
   'INCREASE': 'Increase',
-  'MINOR_INCREASE': 'Increase',
-  'MAJOR_INCREASE': 'Increase',
+  'MINOR_INCREASE': 'Minor Increase',
+  'MAJOR_INCREASE': 'Major Increase',
   'DECREASE': 'Decrease',
-  'MAJOR_DECREASE': 'Decrease',
-  'MINOR_DECREASE': 'Decrease',
+  'MAJOR_DECREASE': 'Major Decrease',
+  'MINOR_DECREASE': 'Minor Decrease',
   'PROMOTED': 'Promoted',
   'DEMOTED': 'Demoted'
 }
@@ -44,7 +44,8 @@ def display_match_history():
         continue
       game_outcome = 'Victory' if 'INCREASE' in match['CompetitiveMovement'] or 'PROMOTED' in match['CompetitiveMovement'] else 'Defeat'
       lp_change = ''
-      
+
+      tier = 'images/ranks/' + str(match['TierAfterUpdate']) + '.png'
       before = match['TierProgressBeforeUpdate']
       after = match['TierProgressAfterUpdate']
 
@@ -55,7 +56,8 @@ def display_match_history():
           'current_lp': after,
           'game_outcome': game_outcome,
           'movement': match_movement_hash[match['CompetitiveMovement']],
-          'status': 'win'
+          'status': 'win',
+          'tier': tier
         }
       elif match['CompetitiveMovement'] == 'DEMOTED':
         lp_change = '-' + str(before + 100 - after)
@@ -64,7 +66,8 @@ def display_match_history():
           'current_lp': after,
           'game_outcome': game_outcome,
           'movement': match_movement_hash[match['CompetitiveMovement']],
-          'status': 'loss'
+          'status': 'loss',
+          'tier': tier
         }
       else:
         if before < after:
@@ -81,7 +84,8 @@ def display_match_history():
           'current_lp': after,
           'game_outcome': game_outcome,
           'movement': match_movement_hash[match['CompetitiveMovement']],
-          'status': status        
+          'status': status,
+          'tier': tier        
         }
       posts.append(match_data)
     # print(posts)
