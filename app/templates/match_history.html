@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Match History</title>
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <link href="{{ url_for('static', filename = 'css/circle-progress.css') }}" rel="stylesheet">
+
+</head>
+
+<body style="background-color: #ECE8E1;">
+
+  <div class="container mx-auto px-4 text-center">
+    <h1 class="font-bold text-2xl my-8">Match History</h1>
+    <div class="flex flex-col">
+      {% for match in posts %}
+      {% if match.status == "win" %}
+        <div class="flex flex-row bg-green-400 p-8 items-center text-l md:text-2xl">
+      {% else %}
+        <div class="flex flex-row bg-red-400 p-8 items-center text-l md:text-2xl">
+      {% endif %}
+          <div class="progress{{ loop.index }}"></div>
+          <div class="flex flex-row px-8 justify-evenly w-full">
+            <p>{{match.lp_change}}</p>
+            <h1>{{match.game_outcome}}</h1>
+            <p>{{match.movement}}</p>
+          </div>
+        </div>
+        {% endfor %}
+      <!-- <div class="flex flex-row bg-red-400 p-8 items-center text-l md:text-2xl">
+        <div class="progress2"></div>
+        <div class="flex flex-row px-8 justify-evenly w-full">
+          <p>-10</p>
+          <h1>Defeat</h1>
+          <p>Greatly Decrease</p>
+        </div>
+      </div> -->
+
+    </div>
+  </div>
+  <script type="text/javascript" src="{{ url_for('static', filename = 'js/circle-progress.js') }}"></script>
+
+  <script>
+    {% for match in posts %}
+    new CircleProgress('.progress{{ loop.index }}', {
+      max: 100,
+      value: {{match.current_lp}},
+      textFormat: 'vertical'
+    });
+    {% endfor %}
+
+  </script>
+
+</body>
+
+</html>

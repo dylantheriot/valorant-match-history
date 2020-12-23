@@ -30,6 +30,8 @@ class ValorantAPI(object):
     r = requests.post('https://auth.riotgames.com/api/v1/authorization', json=data)
     cookies = r.cookies
 
+    return cookies
+
   def get_access_token(self):
     data = {
       'type': 'auth',

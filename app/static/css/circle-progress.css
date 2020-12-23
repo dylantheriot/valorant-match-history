@@ -1,0 +1,11 @@
+.circle-progress-value {
+	stroke-width: 6px;
+	stroke: #364966;
+}
+.circle-progress-circle {
+	stroke-width: 6px;
+	stroke: #5674a1;
+}
+.circle-progress-text {
+	fill: #364966;
+}
