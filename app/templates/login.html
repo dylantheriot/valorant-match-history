@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="jett-bg">
 
 <head>
   <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -15,17 +15,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login</title>
   <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/index.css') }}" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
 
-  <div class="container px-8 mx-auto text-2xl text-center m-8">
-    <h1 class="mb-8">Login Using Your Riot Account</h1>
-    <p class="text-base my-2"><i>This site is not affiliated with Riot Games.</i></p>
-    <div class="shadow-lg rounded p-8 w-full md:w-1/2 mx-auto">
+  <div class="container px-8 mx-auto text-center w-full h-full">
+    <div class="flex flex-col items-center justify-center w-full h-full">
+    <h1 class="text-5xl mb-4 valorant" style="color: #fa4454;">VALORANT RANKED TRACKER</h1>
+    <div class="px-8 py-12 w-full lg:w-1/2 xl:w-1/3 mx-auto bg-white text-4xl">
+      <h2 class="mb-4">Login Using Your Riot Account</h2>
+      <p class="text-base my-2"><i>This site is not affiliated with Riot Games.</i></p>
       <form action="{{ url_for('display_match_history') }}" method="post" autocomplete="off"
         enctype="application/x-www-form-urlencoded">
-        <div class="flex flex-col text-left">
+        <div class="flex flex-col text-left text-2xl">
           <div class="my-4 flex flex-col">
             <label>Username</label>
             <input class="border py-2 px-3 text-grey-darkest" type="text" name="username">
@@ -34,11 +40,13 @@
             <label>Password</label>
             <input class="border py-2 px-3 text-grey-darkest" type="password" name="password">
           </div>
-          <input type="submit">
+          <input class="cursor-pointer login-btn" type="submit" value="Login">
         </div>
       </form>
     </div>
   </div>
+</div>
+
 
 </body>
 
