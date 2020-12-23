@@ -60,7 +60,6 @@ def display_match_history():
           'current_lp': after,
           'game_outcome': game_outcome,
           'movement': match_movement_hash[match['CompetitiveMovement']],
-          'status': 'win',
           'tier': tier,
           'date': date
         }
@@ -71,7 +70,6 @@ def display_match_history():
           'current_lp': after,
           'game_outcome': game_outcome,
           'movement': match_movement_hash[match['CompetitiveMovement']],
-          'status': 'loss',
           'tier': tier,
           'date': date
         }
@@ -79,23 +77,20 @@ def display_match_history():
         if before < after:
           # won
           lp_change = '+' + str(after - before)
-          status = 'win'
         else:
           # lost
           lp_change = str(after - before)
-          status = 'loss'
 
         match_data = {
           'lp_change': lp_change,
           'current_lp': after,
           'game_outcome': game_outcome,
           'movement': match_movement_hash[match['CompetitiveMovement']],
-          'status': status,
           'tier': tier,
           'date': date        
         }
       posts.append(match_data)
     # print(posts)
-    return render_template('match_history.html', posts=posts)
+    return render_template('match_history.html', posts=posts, name=valorant.game_name)
   except:
     return render_template('error.html')

@@ -17,7 +17,7 @@ class ValorantAPI(object):
 
     self.entitlements_token = self.get_entitlements_token()
 
-    self.user_info = self.get_user_info()
+    self.user_info, self.game_name = self.get_user_info()
 
   def get_cookies(self):
     data = {
@@ -62,9 +62,13 @@ class ValorantAPI(object):
       'Authorization': f'Bearer {self.access_token}',
     }
     r = requests.post('https://auth.riotgames.com/userinfo', headers=headers, json={})
-    user_info = r.json()['sub']
+    jsonData = r.json()
+    user_info = jsonData['sub']
+    name = jsonData['acct']['game_name']
+    tag  = jsonData['acct']['tag_line']
+    game_name = name + ' #' +  tag
 
-    return user_info
+    return user_info, game_name
 
   def get_match_history(self):
     # TODO: Allow different regions besides NA

@@ -25,11 +25,14 @@
 <body>
 
   <div class="container mx-auto px-4 text-center">
-    <h1 class="font-bold my-8 valorant text-4xl">Match History</h1>
+    <div class="font-bold my-8">
+      <h1 class="valorant text-4xl">Match History</h1>
+      <h1 class="my-2 text-2xl">{{name}}</h1>
+    </div>
     <div class="flex flex-col">
       {% for match in posts %}
-      {% if match.status == "win" %}
-      <div class="flex flex-col md:flex-row bg-green-400 p-8 items-center text-l md:text-2xl overflow-x-auto">
+      {% if match.game_outcome == "Victory" %}
+      <div class="flex flex-col md:flex-row bg-green-400 p-8 items-center text-l md:text-2xl">
         {% else %}
         <div class="flex flex-col md:flex-row bg-red-400 p-8 items-center text-l md:text-2xl">
           {% endif %}
@@ -65,6 +68,7 @@
 
       </div>
     </div>
+    <div class="h-4"></div>
     <script type="text/javascript" src="{{ url_for('static', filename = 'js/circle-progress.js') }}"></script>
 
     <script>
