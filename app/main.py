@@ -16,6 +16,14 @@ match_movement_hash = {
   'DEMOTED': 'Demoted'
 }
 
+maps_hash = {
+  '/Game/Maps/Duality/Duality': 'bind',
+  '/Game/Maps/Bonsai/Bonsai': 'split',
+  '/Game/Maps/Ascent/Ascent': 'ascent',
+  '/Game/Maps/Port/Port': 'icebox',
+  '/Game/Maps/Triad/Triad': 'haven'
+}
+
 @app.before_request
 def before_request():
     scheme = request.headers.get('X-Forwarded-Proto')
@@ -54,6 +62,8 @@ def display_match_history():
       game_outcome = 'Victory' if 'INCREASE' in match['CompetitiveMovement'] or 'PROMOTED' in match['CompetitiveMovement'] else 'Defeat'
       lp_change = ''
 
+      game_map = 'images/maps/' + maps_hash[match['MapID']] + '.png'
+
       tier = 'images/ranks/' + str(match['TierAfterUpdate']) + '.png'
       epoch_time = match['MatchStartTime'] // 1000
       date = time.strftime('%m-%d-%Y', time.localtime(epoch_time))
@@ -69,7 +79,8 @@ def display_match_history():
           'game_outcome': game_outcome,
           'movement': match_movement_hash[match['CompetitiveMovement']],
           'tier': tier,
-          'date': date
+          'date': date,
+          'game_map': game_map,
         }
       elif match['CompetitiveMovement'] == 'DEMOTED':
         lp_change = '-' + str(before + 100 - after)
@@ -79,7 +90,8 @@ def display_match_history():
           'game_outcome': game_outcome,
           'movement': match_movement_hash[match['CompetitiveMovement']],
           'tier': tier,
-          'date': date
+          'date': date,
+          'game_map': game_map,
         }
       else:
         if before < after:
@@ -95,7 +107,8 @@ def display_match_history():
           'game_outcome': game_outcome,
           'movement': match_movement_hash[match['CompetitiveMovement']],
           'tier': tier,
-          'date': date        
+          'date': date,
+          'game_map': game_map,        
         }
       posts.append(match_data)
     # print(posts)

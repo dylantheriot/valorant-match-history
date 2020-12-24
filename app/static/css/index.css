@@ -43,9 +43,21 @@ html, body {
   height: auto;
 }
 
+@media(min-width: 1024px) {
+  .circle-progress {
+    width: 100px;
+    padding: 0.25rem;
+    /* height: auto; */
+  }
+}
+
 @media(max-width: 640px){
   table, table td, table tr, table th { display: block; text-align: center; } 
   table th, table td { margin: 0; }
   table td  { padding-left: 0; }
   table thead { display: none; }
+}
+
+.maps-bg {
+  padding: 0px !important;
 }
