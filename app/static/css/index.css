@@ -61,3 +61,8 @@ html, body {
 .maps-bg {
   padding: 0px !important;
 }
+
+.social-icons a {
+  padding-left: .25rem;
+  padding-right: .25rem;
+}

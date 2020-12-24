@@ -115,4 +115,5 @@ def display_match_history():
     # print(posts)
     return render_template('match_history.html', posts=posts, name=valorant.game_name)
   except:
+    print('An error occurred. F')
     return render_template('error.html')

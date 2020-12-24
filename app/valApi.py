@@ -72,7 +72,6 @@ class ValorantAPI(object):
     return user_info, game_name
 
   def get_match_history(self):
-    # TODO: Allow different regions besides NA
     headers = {
       'Authorization': f'Bearer {self.access_token}',
       'X-Riot-Entitlements-JWT': f'{self.entitlements_token}'

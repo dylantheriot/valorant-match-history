@@ -20,6 +20,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap"
     rel="stylesheet">
+  <script src="https://kit.fontawesome.com/15d6e01caf.js" crossorigin="anonymous"></script>
 
 </head>
 
@@ -30,7 +31,8 @@
       <h1 class="text-5xl mb-4 valorant" style="color: #fa4454;">VALORANT ELO TRACKER</h1>
       <div class="px-8 py-12 w-full lg:w-1/2 xl:w-1/3 mx-auto bg-white text-4xl">
         <h2 class="mb-4">Login Using Your Riot Account</h2>
-        <p title="This site does not track any of your data. Feel free to modify or look at the code on GitHub and run it locally." class="text-base my-2"><i>This site is not affiliated with Riot Games.</i></p>
+        <p title="This site does not track any of your data. Feel free to modify or look at the code on GitHub and run it locally."
+          class="text-base my-2"><i>This site is not affiliated with Riot Games.</i></p>
         <form action="{{ url_for('display_match_history') }}" method="post" autocomplete="off"
           enctype="application/x-www-form-urlencoded">
           <div class="flex flex-col text-left text-2xl">
@@ -67,8 +69,22 @@
           </div>
         </form>
       </div>
-      <footer class="pt-8 text-gray-500">
-        Dylan Theriot © 2020 
+      <footer class="pt-8 text-gray-500 text-xl">
+        <p>Dylan Theriot © 2020</p>
+        <div class="social-icons">
+          <a title="GitHub" target="_blank" href="https://github.com/dylantheriot/valorant-match-history">
+            <i class="fab fa-github"></i>
+          </a>
+          <a title="LinkedIn" target="_blank" href="https://www.linkedin.com/in/dylan-theriot/">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a title="Personal Website" target="_blank" href="http://dylantheriot.com/">
+            <i class="fas fa-link"></i>
+          </a>
+          <a title="Email" target="_blank" href="mailto:dylantheriot@tamu.edu">
+            <i class="fas fa-envelope"></i>
+          </a>
+        </div>
       </footer>
     </div>
   </div>
