@@ -7,9 +7,10 @@ class ValorantAPI(object):
   cookies = None
   entitlements_token = None
 
-  def __init__(self, username, password):
+  def __init__(self, username, password, region):
     self.username = username
     self.password = password
+    self.region = region
 
     self.cookies = self.get_cookies()
 
@@ -76,7 +77,7 @@ class ValorantAPI(object):
       'Authorization': f'Bearer {self.access_token}',
       'X-Riot-Entitlements-JWT': f'{self.entitlements_token}'
     }
-    r = requests.get(f'https://pd.na.a.pvp.net/mmr/v1/players/{self.user_info}/competitiveupdates?startIndex=0&endIndex=20', headers=headers)
+    r = requests.get(f'https://pd.{self.region}.a.pvp.net/mmr/v1/players/{self.user_info}/competitiveupdates?startIndex=0&endIndex=20', headers=headers)
 
     jsonData = r.json()
 

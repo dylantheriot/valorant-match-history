@@ -48,8 +48,9 @@ def display_match_history():
   try:
     username = request.form['username']
     password = request.form['password']
+    region = request.form['region']
 
-    valorant = ValorantAPI(username, password)
+    valorant = ValorantAPI(username, password, region)
     print('hello world')
 
     json_res = valorant.get_match_history()
