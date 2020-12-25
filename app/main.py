@@ -13,7 +13,8 @@ match_movement_hash = {
   'MAJOR_DECREASE': 'Major Decrease',
   'MINOR_DECREASE': 'Minor Decrease',
   'PROMOTED': 'Promoted',
-  'DEMOTED': 'Demoted'
+  'DEMOTED': 'Demoted',
+  'STABLE': 'Draw'
 }
 
 maps_hash = {
