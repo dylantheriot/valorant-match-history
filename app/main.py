@@ -5,17 +5,17 @@ import time
 
 app = Flask(__name__)
 
-# Gives competitive movement and game outcome
+# Gives competitive movement, game outcome, and associated colors
 match_movement_hash = {
-  'INCREASE': ['Increase', 'Victory'],
-  'MINOR_INCREASE': ['Minor Increase', 'Victory'],
-  'MAJOR_INCREASE': ['Major Increase', 'Victory'],
-  'DECREASE': ['Decrease', 'Defeat'],
-  'MAJOR_DECREASE': ['Major Decrease', 'Defeat'],
-  'MINOR_DECREASE': ['Minor Decrease', 'Defeat'],
-  'PROMOTED': ['Promoted', 'Victory'],
-  'DEMOTED': ['Demoted', 'Defeat'],
-  'STABLE': ['Draw', 'Draw']
+  'INCREASE': ['Increase', 'Victory', 'green', 'rgba(52,211,153,1)'],
+  'MINOR_INCREASE': ['Minor Increase', 'Victory', 'green', 'rgba(52,211,153,1)'],
+  'MAJOR_INCREASE': ['Major Increase', 'Victory', 'green', 'rgba(52,211,153,1)'],
+  'DECREASE': ['Decrease', 'Defeat', 'red', 'rgba(248,113,113,1)'],
+  'MAJOR_DECREASE': ['Major Decrease', 'Defeat', 'red', 'rgba(248,113,113,1)'],
+  'MINOR_DECREASE': ['Minor Decrease', 'Defeat', 'red', 'rgba(248,113,113,1)'],
+  'PROMOTED': ['Promoted', 'Victory', 'green', 'rgba(52,211,153,1)'],
+  'DEMOTED': ['Demoted', 'Defeat', 'red', 'rgba(248,113,113,1)'],
+  'STABLE': ['Stable', 'Draw', 'gray', 'rgba(156, 163, 175, 1)' ]
 }
 
 # Gives map name
@@ -71,7 +71,7 @@ def display_match_history():
       # print(match)
       if match['CompetitiveMovement'] == 'MOVEMENT_UNKNOWN':
         continue
-      match_movement, game_outcome = match_movement_hash[match['CompetitiveMovement']]
+      match_movement, game_outcome, main_color, gradient_color = match_movement_hash[match['CompetitiveMovement']]
       lp_change = ''
 
       game_map = 'images/maps/' + maps_hash[match['MapID']] + '.png'
@@ -105,6 +105,8 @@ def display_match_history():
         'tier': tier,
         'date': date,
         'game_map': game_map,        
+        'main_color': main_color,
+        'gradient_color': gradient_color
       }
 
       posts.append(match_data)
@@ -119,7 +121,8 @@ def display_match_history():
 
 @app.route('/example', methods=['GET'])
 def view_example_data():
-  example_data = [{'lp_change': '+8', 'current_lp': 44, 'game_outcome': 'Victory', 'movement': 'Increase', 'tier': 'images/ranks/23.png', 'date': '12-21-2020', 'game_map': 'images/maps/haven.png'}, {'lp_change': '+10', 'current_lp': 36, 'game_outcome': 'Victory', 'movement': 'Increase', 'tier': 'images/ranks/23.png', 'date': '12-21-2020', 'game_map': 'images/maps/haven.png'}, {'lp_change': '+16', 'current_lp': 26, 'game_outcome': 'Victory', 'movement': 'Major Increase', 'tier': 'images/ranks/23.png', 'date': '12-21-2020', 'game_map': 'images/maps/ascent.png'}, {'lp_change': '+9', 'current_lp': 10, 'game_outcome': 'Victory', 'movement': 'Increase', 'tier': 'images/ranks/23.png', 'date': 
-'12-21-2020', 'game_map': 'images/maps/haven.png'}, {'lp_change': '+27', 'current_lp': 1, 'game_outcome': 'Victory', 'movement': 'Promoted', 'tier': 'images/ranks/23.png', 'date': '12-21-2020', 'game_map': 'images/maps/split.png'}, {'lp_change': '-15', 'current_lp': 74, 'game_outcome': 'Defeat', 'movement': 'Decrease', 'tier': 'images/ranks/22.png', 'date': '12-21-2020', 'game_map': 'images/maps/bind.png'}, {'lp_change': '+24', 'current_lp': 89, 'game_outcome': 'Victory', 'movement': 'Increase', 'tier': 'images/ranks/22.png', 'date': '12-21-2020', 'game_map': 'images/maps/split.png'}, {'lp_change': '-14', 'current_lp': 65, 'game_outcome': 'Defeat', 'movement': 'Decrease', 'tier': 'images/ranks/22.png', 'date': '12-21-2020', 'game_map': 'images/maps/ascent.png'}, {'lp_change': '+23', 'current_lp': 79, 'game_outcome': 'Victory', 'movement': 'Increase', 'tier': 'images/ranks/22.png', 'date': '12-21-2020', 'game_map': 'images/maps/split.png'}, {'lp_change': '+12', 'current_lp': 56, 'game_outcome': 'Victory', 'movement': 'Increase', 'tier': 'images/ranks/22.png', 'date': '12-21-2020', 'game_map': 'images/maps/icebox.png'}, {'lp_change': '+9', 'current_lp': 44, 'game_outcome': 'Victory', 'movement': 'Minor Increase', 'tier': 'images/ranks/22.png', 'date': '12-21-2020', 'game_map': 'images/maps/icebox.png'}]
+  example_data = [{'lp_change': '+8', 'current_lp': 44, 'game_outcome': 'Victory', 'movement': 'Increase', 'tier': 'images/ranks/23.png', 'date': '12-21-2020', 'game_map': 'images/maps/haven.png', 'main_color': 'green', 'gradient_color': 'rgba(52,211,153,1)'}, {'lp_change': '+10', 'current_lp': 36, 'game_outcome': 'Victory', 'movement': 'Increase', 'tier': 'images/ranks/23.png', 'date': '12-21-2020', 'game_map': 'images/maps/haven.png', 'main_color': 'green', 'gradient_color': 'rgba(52,211,153,1)'}, {'lp_change': '+16', 'current_lp': 26, 'game_outcome': 'Victory', 'movement': 'Major Increase', 'tier': 'images/ranks/23.png', 'date': '12-21-2020', 'game_map': 'images/maps/ascent.png', 'main_color': 'green', 'gradient_color': 'rgba(52,211,153,1)'}, {'lp_change': '+9', 'current_lp': 10, 'game_outcome': 'Victory', 'movement': 'Increase', 'tier': 'images/ranks/23.png', 'date': '12-21-2020', 'game_map': 'images/maps/haven.png', 'main_color': 'green', 'gradient_color': 'rgba(52,211,153,1)'}, {'lp_change': '+27', 'current_lp': 1, 'game_outcome': 'Victory', 'movement': 'Promoted', 'tier': 'images/ranks/23.png', 'date': '12-21-2020', 'game_map': 'images/maps/split.png', 'main_color': 'green', 'gradient_color': 'rgba(52,211,153,1)'}, {'lp_change': '-15', 'current_lp': 
+74, 'game_outcome': 'Defeat', 'movement': 'Decrease', 'tier': 'images/ranks/22.png', 'date': '12-21-2020', 'game_map': 'images/maps/bind.png', 'main_color': 'red', 'gradient_color': 'rgba(248,113,113,1)'}, {'lp_change': '+24', 'current_lp': 89, 'game_outcome': 'Victory', 'movement': 'Increase', 'tier': 'images/ranks/22.png', 'date': '12-21-2020', 'game_map': 'images/maps/split.png', 'main_color': 'green', 'gradient_color': 'rgba(52,211,153,1)'}, {'lp_change': '-14', 'current_lp': 65, 'game_outcome': 'Defeat', 'movement': 'Decrease', 'tier': 'images/ranks/22.png', 'date': '12-21-2020', 'game_map': 'images/maps/ascent.png', 
+'main_color': 'red', 'gradient_color': 'rgba(248,113,113,1)'}, {'lp_change': '+23', 'current_lp': 79, 'game_outcome': 'Victory', 'movement': 'Increase', 'tier': 'images/ranks/22.png', 'date': '12-21-2020', 'game_map': 'images/maps/split.png', 'main_color': 'green', 'gradient_color': 'rgba(52,211,153,1)'}, {'lp_change': '+12', 'current_lp': 56, 'game_outcome': 'Victory', 'movement': 'Increase', 'tier': 'images/ranks/22.png', 'date': '12-21-2020', 'game_map': 'images/maps/icebox.png', 'main_color': 'green', 'gradient_color': 'rgba(52,211,153,1)'}, {'lp_change': '+9', 'current_lp': 44, 'game_outcome': 'Victory', 'movement': 'Minor Increase', 'tier': 'images/ranks/22.png', 'date': '12-21-2020', 'game_map': 'images/maps/icebox.png', 'main_color': 'green', 'gradient_color': 'rgba(52,211,153,1)'}]
   return render_template('match_history.html', posts=example_data, name='Example #RIOT', title='VALORANTELO - Example')
 

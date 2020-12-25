@@ -43,11 +43,7 @@
         </tr>
       </table>
       {% for match in posts %}
-      {% if match.game_outcome == "Victory" %}
-      <div class="flex flex-col md:flex-row bg-green-400 items-center text-l md:text-2xl">
-        {% else %}
-        <div class="flex flex-col md:flex-row bg-red-400 items-center text-l md:text-2xl">
-          {% endif %}
+      <div class="flex flex-col md:flex-row bg-{{ match.main_color }}-400 items-center text-l md:text-2xl">
           <table class="w-full" style="text-align: center; vertical-align: middle; table-layout: auto;">
             <col style="width:16%" span="6" />
             <tr>
@@ -67,28 +63,14 @@
               <!-- <td>{{match.date}}</td> -->
               <!-- <td class="maps-bg" style="background-image: url({{ url_for('static', filename=match.game_map )}}); background-position: center center; background-size: auto;">
               </td> -->
-              {% if match.game_outcome == "Victory" %}
               <td title="The game map and date." class="maps-bg text-white" style="background: linear-gradient(to left, rgba(255,255,255,0) 80%,
-              rgba(52,211,153,1)), url({{ url_for('static', filename=match.game_map )}});">
-              {% else %}
-              <td title="The game map and date." class="maps-bg text-white" style="background: linear-gradient(to left, rgba(255,255,255,0) 80%,
-              rgba(248,113,113,1)), url({{ url_for('static', filename=match.game_map )}});">
-              {% endif %}
+              {{ match.gradient_color }}), url({{ url_for('static', filename=match.game_map )}});">
               {{match.date}}
             </td>
             </tr>
           </table>
         </div>
         {% endfor %}
-        <!-- <div class="flex flex-row bg-red-400 p-8 items-center text-l md:text-2xl">
-        <div class="progress2"></div>
-        <div class="flex flex-row px-8 justify-evenly w-full">
-          <p>-10</p>
-          <h1>Defeat</h1>
-          <p>Greatly Decrease</p>
-        </div>
-      </div> -->
-
       </div>
     </div>
     <div class="h-4"></div>
