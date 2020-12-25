@@ -5,18 +5,20 @@ import time
 
 app = Flask(__name__)
 
+# Gives competitive movement and game outcome
 match_movement_hash = {
-  'INCREASE': 'Increase',
-  'MINOR_INCREASE': 'Minor Increase',
-  'MAJOR_INCREASE': 'Major Increase',
-  'DECREASE': 'Decrease',
-  'MAJOR_DECREASE': 'Major Decrease',
-  'MINOR_DECREASE': 'Minor Decrease',
-  'PROMOTED': 'Promoted',
-  'DEMOTED': 'Demoted',
-  'STABLE': 'Draw'
+  'INCREASE': ['Increase', 'Victory'],
+  'MINOR_INCREASE': ['Minor Increase', 'Victory'],
+  'MAJOR_INCREASE': ['Major Increase', 'Victory'],
+  'DECREASE': ['Decrease', 'Defeat'],
+  'MAJOR_DECREASE': ['Major Decrease', 'Defeat'],
+  'MINOR_DECREASE': ['Minor Decrease', 'Defeat'],
+  'PROMOTED': ['Promoted', 'Victory'],
+  'DEMOTED': ['Demoted', 'Defeat'],
+  'STABLE': ['Draw', 'Draw']
 }
 
+# Gives map name
 maps_hash = {
   '/Game/Maps/Duality/Duality': 'bind',
   '/Game/Maps/Bonsai/Bonsai': 'split',
@@ -36,65 +38,57 @@ def before_request():
 @app.route('/')
 def home():
   return render_template('login.html')
-  # return '<h1>Hello World<h1>'
 
-#   return Response(json_res, mimetype="application/json")
-
+# Redirect people to login page
 @app.route('/match_history', methods=['GET'])
 def redirect_to_login():
   return redirect(url_for('home'))
 
 @app.route('/match_history', methods=['POST'])
 def display_match_history():
+  username = request.form['username']
+  password = request.form['password']
+  region = request.form['region']
+  
+  # Attempt login
   try:
-    username = request.form['username']
-    password = request.form['password']
-    region = request.form['region']
-
     valorant = ValorantAPI(username, password, region)
-    print('hello world')
+  except:
+    print('A login error occurred. F')
+    return render_template('error.html', error='Invalid username/password or incorrect region.')
 
+  # Attempt to acquire match history data
+  try:
     json_res = valorant.get_match_history()
+  except:
+    print('Cannot get match history.')
+    return render_template('error.html', error='Cannot get match history.')
 
+  # Attempt to parse through match history data
+  try:
     posts = []
     for match in json_res['Matches']:
       # print(match)
       if match['CompetitiveMovement'] == 'MOVEMENT_UNKNOWN':
         continue
-      game_outcome = 'Victory' if 'INCREASE' in match['CompetitiveMovement'] or 'PROMOTED' in match['CompetitiveMovement'] else 'Defeat'
+      match_movement, game_outcome = match_movement_hash[match['CompetitiveMovement']]
       lp_change = ''
 
       game_map = 'images/maps/' + maps_hash[match['MapID']] + '.png'
 
       tier = 'images/ranks/' + str(match['TierAfterUpdate']) + '.png'
+      
       epoch_time = match['MatchStartTime'] // 1000
       date = time.strftime('%m-%d-%Y', time.localtime(epoch_time))
 
       before = match['TierProgressBeforeUpdate']
       after = match['TierProgressAfterUpdate']
 
+      # calculate lp change, TODO: do this more efficiently
       if match['CompetitiveMovement'] == 'PROMOTED':
         lp_change = '+' + str(after + 100 - before)
-        match_data = {
-          'lp_change': lp_change,
-          'current_lp': after,
-          'game_outcome': game_outcome,
-          'movement': match_movement_hash[match['CompetitiveMovement']],
-          'tier': tier,
-          'date': date,
-          'game_map': game_map,
-        }
       elif match['CompetitiveMovement'] == 'DEMOTED':
         lp_change = '-' + str(before + 100 - after)
-        match_data = {
-          'lp_change': lp_change,
-          'current_lp': after,
-          'game_outcome': game_outcome,
-          'movement': match_movement_hash[match['CompetitiveMovement']],
-          'tier': tier,
-          'date': date,
-          'game_map': game_map,
-        }
       else:
         if before < after:
           # won
@@ -103,21 +97,25 @@ def display_match_history():
           # lost
           lp_change = str(after - before)
 
-        match_data = {
-          'lp_change': lp_change,
-          'current_lp': after,
-          'game_outcome': game_outcome,
-          'movement': match_movement_hash[match['CompetitiveMovement']],
-          'tier': tier,
-          'date': date,
-          'game_map': game_map,        
-        }
+      match_data = {
+        'lp_change': lp_change,
+        'current_lp': after,
+        'game_outcome': game_outcome,
+        'movement': match_movement,
+        'tier': tier,
+        'date': date,
+        'game_map': game_map,        
+      }
+
       posts.append(match_data)
+
     print(posts)
     return render_template('match_history.html', posts=posts, name=valorant.game_name, title='VALORANTELO - Match History')
   except:
-    print('An error occurred. F')
-    return render_template('error.html')
+    print('Error parsing match history data.')
+    temp = json_res
+    print('Match history failed with:', temp)
+    return render_template('error.html', error='Error parsing match history data. An administrator will look into this.')
 
 @app.route('/example', methods=['GET'])
 def view_example_data():

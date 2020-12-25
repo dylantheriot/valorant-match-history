@@ -32,13 +32,7 @@
       <div class="p-12 w-full lg:w-1/2 mx-auto bg-white">
         <h1 class="text-3xl md:text-6xl valorant" style="color: #fa4454">SORRY, AN ERROR HAS OCCURRED.</h1>
         <div class="text-left text-base md:text-2xl my-4">
-          <p>Potential issues:</p>
-          <ol style="list-style: circle inside;">
-            <li>Invalid username/password</li>
-            <li>No recent ranked matches</li>
-            <li>Unranked</li>
-            <li>Incorrect server</li>
-          </ol>
+          <p>{{ error }}</p>
         </div>
         <a class="login-btn px-4 py-2 text-xl font-bold" href="{{ url_for('home') }}">
           GO BACK
