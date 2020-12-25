@@ -112,8 +112,15 @@ def display_match_history():
           'game_map': game_map,        
         }
       posts.append(match_data)
-    # print(posts)
-    return render_template('match_history.html', posts=posts, name=valorant.game_name)
+    print(posts)
+    return render_template('match_history.html', posts=posts, name=valorant.game_name, title='VALORANTELO - Match History')
   except:
     print('An error occurred. F')
     return render_template('error.html')
+
+@app.route('/example', methods=['GET'])
+def view_example_data():
+  example_data = [{'lp_change': '+8', 'current_lp': 44, 'game_outcome': 'Victory', 'movement': 'Increase', 'tier': 'images/ranks/23.png', 'date': '12-21-2020', 'game_map': 'images/maps/haven.png'}, {'lp_change': '+10', 'current_lp': 36, 'game_outcome': 'Victory', 'movement': 'Increase', 'tier': 'images/ranks/23.png', 'date': '12-21-2020', 'game_map': 'images/maps/haven.png'}, {'lp_change': '+16', 'current_lp': 26, 'game_outcome': 'Victory', 'movement': 'Major Increase', 'tier': 'images/ranks/23.png', 'date': '12-21-2020', 'game_map': 'images/maps/ascent.png'}, {'lp_change': '+9', 'current_lp': 10, 'game_outcome': 'Victory', 'movement': 'Increase', 'tier': 'images/ranks/23.png', 'date': 
+'12-21-2020', 'game_map': 'images/maps/haven.png'}, {'lp_change': '+27', 'current_lp': 1, 'game_outcome': 'Victory', 'movement': 'Promoted', 'tier': 'images/ranks/23.png', 'date': '12-21-2020', 'game_map': 'images/maps/split.png'}, {'lp_change': '-15', 'current_lp': 74, 'game_outcome': 'Defeat', 'movement': 'Decrease', 'tier': 'images/ranks/22.png', 'date': '12-21-2020', 'game_map': 'images/maps/bind.png'}, {'lp_change': '+24', 'current_lp': 89, 'game_outcome': 'Victory', 'movement': 'Increase', 'tier': 'images/ranks/22.png', 'date': '12-21-2020', 'game_map': 'images/maps/split.png'}, {'lp_change': '-14', 'current_lp': 65, 'game_outcome': 'Defeat', 'movement': 'Decrease', 'tier': 'images/ranks/22.png', 'date': '12-21-2020', 'game_map': 'images/maps/ascent.png'}, {'lp_change': '+23', 'current_lp': 79, 'game_outcome': 'Victory', 'movement': 'Increase', 'tier': 'images/ranks/22.png', 'date': '12-21-2020', 'game_map': 'images/maps/split.png'}, {'lp_change': '+12', 'current_lp': 56, 'game_outcome': 'Victory', 'movement': 'Increase', 'tier': 'images/ranks/22.png', 'date': '12-21-2020', 'game_map': 'images/maps/icebox.png'}, {'lp_change': '+9', 'current_lp': 44, 'game_outcome': 'Victory', 'movement': 'Minor Increase', 'tier': 'images/ranks/22.png', 'date': '12-21-2020', 'game_map': 'images/maps/icebox.png'}]
+  return render_template('match_history.html', posts=example_data, name='Example #RIOT', title='VALORANTELO - Example')
+
