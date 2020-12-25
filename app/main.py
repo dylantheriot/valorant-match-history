@@ -24,7 +24,8 @@ maps_hash = {
   '/Game/Maps/Bonsai/Bonsai': 'split',
   '/Game/Maps/Ascent/Ascent': 'ascent',
   '/Game/Maps/Port/Port': 'icebox',
-  '/Game/Maps/Triad/Triad': 'haven'
+  '/Game/Maps/Triad/Triad': 'haven',
+  '': 'unknown'
 }
 
 @app.before_request
@@ -117,7 +118,7 @@ def display_match_history():
     print('Error parsing match history data.')
     temp = json_res
     print('Match history failed with:', temp)
-    return render_template('error.html', error='Error parsing match history data. An administrator will look into this.')
+    return render_template('error.html', error='Error parsing match history data. An administrator will look into this. Try again soon.')
 
 @app.route('/example', methods=['GET'])
 def view_example_data():
