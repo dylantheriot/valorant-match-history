@@ -7,10 +7,11 @@ class ValorantAPI(object):
   cookies = None
   entitlements_token = None
 
-  def __init__(self, username, password, region):
+  def __init__(self, username, password, region, client_ip):
     self.username = username
     self.password = password
     self.region = region
+    self.client_ip = client_ip
 
     self.cookies = self.get_cookies()
 
@@ -28,7 +29,11 @@ class ValorantAPI(object):
     'response_type': 'token id_token',
     'scope': 'account openid',
     }
-    r = requests.post('https://auth.riotgames.com/api/v1/authorization', json=data)
+    headers = {
+      'X-Forwarded-For': self.client_ip
+    }
+    r = requests.post('https://auth.riotgames.com/api/v1/authorization', headers=headers, json=data)
+
     cookies = r.cookies
 
     return cookies
@@ -39,8 +44,10 @@ class ValorantAPI(object):
       'username': self.username,
       'password': self.password
     }
-  
-    r = requests.put('https://auth.riotgames.com/api/v1/authorization', json=data, cookies=self.cookies)
+    headers = {
+      'X-Forwarded-For': self.client_ip
+    }
+    r = requests.put('https://auth.riotgames.com/api/v1/authorization', headers=headers, json=data, cookies=self.cookies)
     uri = r.json()['response']['parameters']['uri']
     jsonUri = urllib.parse.parse_qs(uri)
 
@@ -51,6 +58,7 @@ class ValorantAPI(object):
   def get_entitlements_token(self):
     headers = {
       'Authorization': f'Bearer {self.access_token}',
+      'X-Forwarded-For': self.client_ip
     }
     r = requests.post('https://entitlements.auth.riotgames.com/api/token/v1', headers=headers, json={}, cookies=self.cookies)
 
@@ -61,8 +69,10 @@ class ValorantAPI(object):
   def get_user_info(self):
     headers = {
       'Authorization': f'Bearer {self.access_token}',
+      'X-Forwarded-For': self.client_ip
     }
-    r = requests.post('https://auth.riotgames.com/userinfo', headers=headers, json={})
+
+    r = requests.post('https://auth.riotgames.com/userinfo', headers=headers, json={}, cookies=self.cookies)
     jsonData = r.json()
     user_info = jsonData['sub']
     name = jsonData['acct']['game_name']
@@ -74,9 +84,10 @@ class ValorantAPI(object):
   def get_match_history(self):
     headers = {
       'Authorization': f'Bearer {self.access_token}',
-      'X-Riot-Entitlements-JWT': f'{self.entitlements_token}'
+      'X-Riot-Entitlements-JWT': f'{self.entitlements_token}',
+      'X-Forwarded-For': self.client_ip
     }
-    r = requests.get(f'https://pd.{self.region}.a.pvp.net/mmr/v1/players/{self.user_info}/competitiveupdates?startIndex=0&endIndex=20', headers=headers)
+    r = requests.get(f'https://pd.{self.region}.a.pvp.net/mmr/v1/players/{self.user_info}/competitiveupdates?startIndex=0&endIndex=20', headers=headers, cookies=self.cookies)
 
     jsonData = r.json()
 

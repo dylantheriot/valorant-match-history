@@ -63,10 +63,12 @@ def display_match_history():
   username = request.form['username']
   password = request.form['password']
   region = request.form['region']
+  client_ip = request.environ['REMOTE_ADDR']
+  print('client ip:', client_ip)
   
   # Attempt login
   try:
-    valorant = ValorantAPI(username, password, region)
+    valorant = ValorantAPI(username, password, region, )
   except:
     print('A login error occurred. F')
     return render_template('error.html', error='Invalid username/password or incorrect region.')
