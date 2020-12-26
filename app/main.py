@@ -68,7 +68,7 @@ def display_match_history():
   
   # Attempt login
   try:
-    valorant = ValorantAPI(username, password, region, )
+    valorant = ValorantAPI(username, password, region, client_ip)
   except:
     print('A login error occurred. F')
     return render_template('error.html', error='Invalid username/password or incorrect region.')
