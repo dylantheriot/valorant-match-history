@@ -64,6 +64,8 @@ def display_match_history():
   password = request.form['password']
   region = request.form['region']
   client_ip = request.environ['REMOTE_ADDR']
+  print(request.headers.getlist('X-Forwarded-For'))
+  print(request.remote_addr)
   print('client ip:', client_ip)
   
   # Attempt login
