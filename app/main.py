@@ -63,11 +63,14 @@ def display_match_history():
   username = request.form['username']
   password = request.form['password']
   region = request.form['region']
-  client_ip = request.environ['REMOTE_ADDR']
-  print(request.headers.getlist('X-Forwarded-For'))
-  print(request.remote_addr)
-  print('client ip:', client_ip)
-  
+  try:
+    client_ip = request.headers.getlist('X-Forwarded-For')[0]
+  except:
+    print('unknown IP Address')
+    client_ip = request.remote_addr
+
+  print('client ip 1:', request.headers.getlist('X-Forwarded-For'))
+    
   # Attempt login
   try:
     valorant = ValorantAPI(username, password, region, client_ip)
