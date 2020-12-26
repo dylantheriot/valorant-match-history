@@ -2,8 +2,16 @@ from flask import Flask, render_template, request, redirect, url_for
 import json
 from .valApi import ValorantAPI
 import time
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 app = Flask(__name__)
+
+limiter = Limiter(
+    app,
+    key_func=get_remote_address,
+    default_limits=["30 per hour", "15 per minute", "2 per second"],
+)
 
 # Gives competitive movement, game outcome, and associated colors
 match_movement_hash = {
@@ -35,6 +43,11 @@ def before_request():
         url = request.url.replace('http://', 'https://', 1)
         code = 301
         return redirect(url, code=code)
+
+@app.errorhandler(429)
+def ratelimit_handler(e):
+    print('Rate limit has been exceeded: %s' % e.description)
+    return "<h1>Rate limit exceeded. Please try again later.</h1>", 429
 
 @app.route('/')
 def home():
