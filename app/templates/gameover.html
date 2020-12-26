@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8WZGNCME04"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-8WZGNCME04');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VALORANTELO - Game Over</title>
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/index.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/landing.css') }}" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap"
+    rel="stylesheet">
+  <script src="https://kit.fontawesome.com/15d6e01caf.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body style="background-color: #ECE8E1;">
+  <div class="">
+    <div class="landing-block z-0">
+      <span class=""></span>
+      <span class=""></span>
+      <span class=""></span>
+      <span class=""></span>
+    </div>
+    <div class="img-wrapper-tablet">
+      <img src="{{ url_for('static', filename='images/ranks/24.png')}}" alt=""/> 
+    </div>
+    <div class="container lg:w-2/3 w-full mx-auto flex flex-wrap ">
+      <div class="landing-text ml-4">
+        <h1 class="md:w-full lg:w-7/12 md:w-3/4 font-bold valorant">VALORANT ELO TRACKER</h1>
+        <p class="md:w-full lg:w-1/2 md:w-3/4" style="max-width: 100%"> Determine how close you are to ranking up.</p>
+        <div class="button-area">
+          <a href="https://github.com/dylantheriot/valorant-match-history">
+            DOWNLOAD/RUN THE PROJECT
+          </a>
+          <a href="{{ url_for('view_example_data') }}">
+            VIEW AN EXAMPLE
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="container mx-auto text-left relative z-50">
+      <div id="login" class="my-32 text-2xl">
+        <h1 class="font-bold text-4xl">I've decided to take this site's functionality down for personal reasons. Thank you to everyone for all of the support and kind words!</h1>
+        <p class="my-8">If you would still like to use this site with the original functionality, go to my GitHub <a class="text-blue-600 underline hover:text-blue-900" target="_blank" href="https://github.com/dylantheriot/valorant-match-history">here</a> and follow the installation instructions to run it locally. Feel free to contact me or leave a GitHub issue if you have any problems running it yourself.</p>
+        <p class="my-8">Another alternative is to use RumbleMikee's project (we are not associated), which this website was based on. You can learn more about it here:</p>
+        <div class="flex flex-row items-center justify-center">
+          <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Update 1.0.1 For RankedPointChecker is out now. <br>Fixes:<br>~ Negative Points Bug<br>~ Adds Rank Up Detection<br>~ All Regions into 1 Build<br>~ Fixes Program Not Opening Issues<a href="https://t.co/xjF0UrYPne">https://t.co/xjF0UrYPne</a></p>&mdash; Mike (@RumbleMikee) <a href="https://twitter.com/RumbleMikee/status/1341427684145033217?ref_src=twsrc%5Etfw">December 22, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+        <p>Happy holidays! <br> - Dylan</p>
+      </div>
+      <div class="my-32 text-xl">
+        <h1 class="font-bold text-3xl">FAQs</h1>
+        <br>
+        <h2 class="font-bold">Why did you make this site?</h2>
+        <p>My friend showed me RumbleMikee's project and I thought it was really exciting, so I wanted to try and utilize it in my own way. It was a great learning experience and I really enjoyed all of the responses and feedback I received.</p>
+        <br>
+        <h2 class="font-bold">Did you steal my data?</h2>
+        <p>No. <strong>I did not steal or track any of your Riot Games data.</strong> I'm just a college student who saw the opportunity for a quick, fun project and acted on it.</p>
+        <br>
+        <h2 class="font-bold">Why are you taking this down?</h2>
+        <p>Admittedly, this isn't a FAQ but it is a question I'm expecting. I really made this as a fun thing for my friends and I (and got the URL as a gag), and the growth of this site has been tremendously humbling. However, I knew going into it it would be a short lived project. I'm pretty sure Riot plans to release this data in the next VALORANT patch anyways. My life has been consumed by this project for the past few days and I just want to move on to other things.</p>
+        <br>
+        <h2 class="font-bold">So why not keep the site running?</h2>
+        <p>I figured Riot was eventually going to take it down, and as the proactive person that I am I just wanted to get ahead of the game! Plus, I'd like to be on their good side as I would love to eventually work for them as a software engineer <i class="text-sm">(*wink wink nudge nudge*)</i>.</p>
+        <br>
+        <h2 class="font-bold">Any plans for the future?</h2>
+        <p>I've been working on a T-shirt designing website for a small company for awhile. So be on the lookout for that! Otherwise feel free to follow me on <a class="text-blue-600 underline hover:text-blue-900" target="_blank" href="https://www.youtube.com/channel/UCDFnmDAXP6B8oHfWUSpes0Q">YouTube</a>, <a class="text-blue-600 underline hover:text-blue-900" target="_blank" href="https://www.twitch.tv/doublesquare">Twitch</a> (where I had actually streamed myself creating this site), and <a class="text-blue-600 underline hover:text-blue-900" target="_blank" href="https://www.linkedin.com/in/dylan-theriot/">LinkedIn</a>. You can also learn more about me <a class="text-blue-600 underline hover:text-blue-900" target="_blank" href="http://dylantheriot.com/">here</a>.</p>
+
+      </div>
+    </div>
+  </div>
+  <footer class="pt-8 text-gray-500 text-xl text-center container mx-auto">
+    <p>Dylan Theriot © 2020</p>
+    <div class="social-icons">
+      <a title="GitHub" target="_blank" href="https://github.com/dylantheriot/valorant-match-history">
+        <i class="fab fa-github"></i>
+      </a>
+      <a title="LinkedIn" target="_blank" href="https://www.linkedin.com/in/dylan-theriot/">
+        <i class="fab fa-linkedin"></i>
+      </a>
+      <a title="Personal Website" target="_blank" href="http://dylantheriot.com/">
+        <i class="fas fa-link"></i>
+      </a>
+      <a title="Email" target="_blank" href="mailto:dylantheriot@tamu.edu">
+        <i class="fas fa-envelope"></i>
+      </a>
+    </div>
+    <p class="text-base my-4">VALORANT ELO TRACKER isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</p>
+    <div class="h-4"></div>
+</footer>
+
+</body>
+
+</html>
