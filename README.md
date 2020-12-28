@@ -4,6 +4,8 @@ Track and view your VALORANT elo with this web application. As of 12/26, the ori
 ## Installation
 Pick one of the two following methods to install and run this project:
 ### Regular Installation (Recommended)
+You can follow along with the **VIDEO TUTORIAL** [here](https://youtu.be/56D9lH0O5hU).
+
 1. Ensure you have Python 3.X and pip on your computer. You can download it on Windows [here](https://www.microsoft.com/en-us/p/python-39/9p7qfqmjrfp7?activetab=pivot:overviewtab), and most Macbooks should already have Python pre-installed.
 2. Clone the code/repo (download the zip, utilize `git clone`, or any other method)
 3. In the root directory (the valorant-match-history folder), run `python3 -m pip install -r requirements.txt`
