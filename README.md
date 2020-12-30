@@ -1,4 +1,7 @@
 # VALORANT ELO TRACKER
+**PLEASE NOTE THAT ANY ONLINE WEBSITES USING THIS CODE ARE NOT AFFILIATED WITH ME AND I CANNOT GUARANTEE THAT YOUR USERNAME/PASSWORD ARE SAFE THROUGH THEM**
+
+
 Track and view your VALORANT elo with this web application. As of 12/26, the original site has been taken down.
 
 ## Installation
