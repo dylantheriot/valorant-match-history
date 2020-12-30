@@ -85,10 +85,24 @@ class ValorantAPI(object):
     headers = {
       'Authorization': f'Bearer {self.access_token}',
       'X-Riot-Entitlements-JWT': f'{self.entitlements_token}',
-      'X-Forwarded-For': self.client_ip
+      'X-Forwarded-For': self.client_ip,
     }
-    r = requests.get(f'https://pd.{self.region}.a.pvp.net/mmr/v1/players/{self.user_info}/competitiveupdates?startIndex=0&endIndex=20', headers=headers, cookies=self.cookies)
 
-    jsonData = r.json()
+    response = {'Matches':[]}
 
-    return jsonData
+    for i in range(5):
+      r = requests.get(
+        f'https://pd.{self.region}.a.pvp.net/mmr/v1/players/{self.user_info}/competitiveupdates?startIndex=%d&endIndex=%d' % (i * 20, (i+1) * 20),
+        headers=headers,
+        cookies=self.cookies,
+      )
+      jsonData = r.json()
+      if not response:
+        response = jsonData
+      else:
+        response['Matches'].extend(jsonData['Matches'])
+
+      import time
+      time.sleep(1)
+
+    return response
