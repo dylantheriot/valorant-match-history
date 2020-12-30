@@ -1,8 +1,13 @@
 # VALORANT ELO TRACKER
-**PLEASE NOTE THAT ANY ONLINE WEBSITES USING THIS CODE ARE NOT AFFILIATED WITH ME AND I CANNOT GUARANTEE THAT YOUR USERNAME/PASSWORD ARE SAFE THROUGH THEM**
-
 
 Track and view your VALORANT elo with this web application. As of 12/26, the original site has been taken down.
+
+# DISCLAIMER
+Please note that **ANY** currently online websites utilizing this code with the original functionality are not endorsed by me and I **CANNOT** guarantee that your username/password are safe when using them. Currently the only safe method I can endorse is downloading this project from my GitHub and running it locally on your computer by following this video tutorial.
+
+Please **DO NOT** input your username/password into any other URL links that are running the same code as your information may be stolen. Even if the website links to me, it does not mean I endorse it or that I am the person running it.
+
+Riot Games, if you would like me to take this application down please let me know. I can be contacted via [Twitter](https://twitter.com/_dylantheriot) or [Email](mailto:dylantheriot@tamu.edu).
 
 ## Installation
 Pick one of the two following methods to install and run this project:
