@@ -1,3 +1,4 @@
+# The program is currently down (1/6/2021 5pm CST). A fix will be pushed out soon.
 # VALORANT ELO TRACKER
 
 Track and view your VALORANT elo with this web application. As of 12/26, the original site has been taken down.
