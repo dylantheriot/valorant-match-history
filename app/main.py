@@ -135,6 +135,8 @@ def display_match_history():
     print(posts)
     return render_template('match_history.html', posts=posts, name=valorant.game_name, title='VALORANTELO - Match History')
   except:
+    import traceback
+    traceback.print_exc()
     print('Error parsing match history data.')
     temp = json_res
     print('Match history failed with:', temp)
