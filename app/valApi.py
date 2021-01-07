@@ -25,7 +25,7 @@ class ValorantAPI(object):
     data = {
     'client_id': 'play-valorant-web-prod',
     'nonce': '1',
-    'redirect_uri': 'https://beta.playvalorant.com/opt_in',
+    'redirect_uri': 'https://playvalorant.com/',
     'response_type': 'token id_token',
     'scope': 'account openid',
     }
@@ -51,7 +51,7 @@ class ValorantAPI(object):
     uri = r.json()['response']['parameters']['uri']
     jsonUri = urllib.parse.parse_qs(uri)
 
-    access_token = jsonUri['https://beta.playvalorant.com/opt_in#access_token'][0]
+    access_token = jsonUri['https://playvalorant.com/#access_token'][0]
 
     return access_token
 
