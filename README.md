@@ -1,3 +1,5 @@
+## If you downloaded this project BEFORE 1/6/2021, you will need to redownload the code/zip and rerun installation for it to work again.
+
 # VALORANT ELO TRACKER
 
 Track and view your VALORANT elo with this web application. As of 12/26, the original site has been taken down.
