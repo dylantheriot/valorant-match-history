@@ -112,8 +112,6 @@ def display_match_history():
 
       if lp_change > 0:
         lp_change = '+' + str(lp_change)
-      elif lp_change == 0:
-        match_movement = "Rating did not change"
 
       match_data = {
         'lp_change': str(lp_change),
