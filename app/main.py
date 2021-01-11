@@ -92,7 +92,6 @@ def display_match_history():
       compe_movement = match['CompetitiveMovement']
       if compe_movement == 'MOVEMENT_UNKNOWN':
         continue
-      print(match)
       match_movement, game_outcome, main_color, gradient_color = match_movement_hash[compe_movement]
 
       game_map = 'images/maps/' + maps_hash[match['MapID']] + '.png'
