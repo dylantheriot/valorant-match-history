@@ -89,11 +89,11 @@ def display_match_history():
   try:
     posts = []
     for match in json_res['Matches']:
-      # print(match)
-      if match['CompetitiveMovement'] == 'MOVEMENT_UNKNOWN':
+      compe_movement = match['CompetitiveMovement']
+      if compe_movement == 'MOVEMENT_UNKNOWN':
         continue
-      match_movement, game_outcome, main_color, gradient_color = match_movement_hash[match['CompetitiveMovement']]
-      lp_change = ''
+      print(match)
+      match_movement, game_outcome, main_color, gradient_color = match_movement_hash[compe_movement]
 
       game_map = 'images/maps/' + maps_hash[match['MapID']] + '.png'
 
@@ -104,22 +104,20 @@ def display_match_history():
 
       before = match['TierProgressBeforeUpdate']
       after = match['TierProgressAfterUpdate']
+      tier_after = match['TierAfterUpdate']
+      tier_before = match['TierBeforeUpdate']
+      tier_min = min(tier_after, tier_before)
 
-      # calculate lp change, TODO: do this more efficiently
-      if match['CompetitiveMovement'] == 'PROMOTED':
-        lp_change = '+' + str(after + 100 - before)
-      elif match['CompetitiveMovement'] == 'DEMOTED':
-        lp_change = '-' + str(before + 100 - after)
-      else:
-        if before < after:
-          # won
-          lp_change = '+' + str(after - before)
-        else:
-          # lost
-          lp_change = str(after - before)
+      # calculate lp change
+      lp_change = (((tier_after - tier_min) * 100) + after) - (((tier_before - tier_min) * 100) + before)
+
+      if lp_change > 0:
+        lp_change = '+' + str(lp_change)
+      elif lp_change == 0:
+        match_movement = "Rating did not change"
 
       match_data = {
-        'lp_change': lp_change,
+        'lp_change': str(lp_change),
         'current_lp': after,
         'game_outcome': game_outcome,
         'movement': match_movement,
