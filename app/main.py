@@ -84,7 +84,7 @@ def display_match_history():
   except:
     print('Cannot get match history.')
     return render_template('error.html', error='Cannot get match history.')
-
+  print(json_res)
   # Attempt to parse through match history data
   try:
     posts = []
@@ -102,8 +102,8 @@ def display_match_history():
       epoch_time = match['MatchStartTime'] // 1000
       date = time.strftime('%m-%d-%Y', time.localtime(epoch_time))
 
-      before = match['TierProgressBeforeUpdate']
-      after = match['TierProgressAfterUpdate']
+      before = match['RankedRatingBeforeUpdate']
+      after = match['RankedRatingAfterUpdate']
 
       # calculate lp change, TODO: do this more efficiently
       if match['CompetitiveMovement'] == 'PROMOTED':
