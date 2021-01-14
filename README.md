@@ -32,6 +32,16 @@ You can follow along with the **VIDEO TUTORIAL** [here](https://youtu.be/56D9lH0
 4. Run `docker run -p 5000:5000 <YOUR_IMAGE_ID>`. In the example, the commmand would be `docker run -p 5000:5000 fbce9febcaa8`.
 5. Visit `http://0.0.0.0:5000/` in your web browser from the same device that ran step 4.
 
+### Login
+Login using your Riot Games account
+If you currently login with google, you will have to disconnect that and create a standard Riot login
+To do so:
+1. Go to https://account.riotgames.com/account
+2. Select the "connected accounts" tab
+3. Press disconnect onto google/facebook/whatever you are using to login in
+4. It will tell you to create a new riot login, create it
+5. Press submit, and you should be able to use the new login you made for this, but remember it/write it down because you may need to re-login into any riot games you have and will need to use this new login
+
 
 ## Notes
 Inspired from https://github.com/RumbleMike/ValorantRankedPoints and https://gist.github.com/Luc1412/1f93257a2a808679ff014f258db6c35b
