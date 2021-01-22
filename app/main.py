@@ -90,20 +90,20 @@ def display_match_history():
           if match['RankedRatingEarned'] > 0:
             CompetitiveMovement = 'PROMOTED'
             match_movement, game_outcome, main_color, gradient_color = match_movement_hash[CompetitiveMovement]
-          if match['RankedRatingEarned'] < 0:
+          elif match['RankedRatingEarned'] < 0:
             CompetitiveMovement = 'DEMOTED'
             match_movement, game_outcome, main_color, gradient_color = match_movement_hash[CompetitiveMovement]
-          if match['RankedRatingEarned'] == 0:
+          elif match['RankedRatingEarned'] == 0:
             CompetitiveMovement = 'STABLE'
             match_movement, game_outcome, main_color, gradient_color = match_movement_hash[CompetitiveMovement]
       elif match['TierBeforeUpdate'] == match['TierAfterUpdate']:
           if match['RankedRatingEarned'] > 0:
             CompetitiveMovement = 'INCREASE'
             match_movement, game_outcome, main_color, gradient_color = match_movement_hash[CompetitiveMovement]
-          if match['RankedRatingEarned'] < 0:
+          elif match['RankedRatingEarned'] < 0:
             CompetitiveMovement = 'DECREASE'
             match_movement, game_outcome, main_color, gradient_color = match_movement_hash[CompetitiveMovement]
-          if match['RankedRatingEarned'] == 0:
+          elif match['RankedRatingEarned'] == 0:
             continue
       lp_change = ''
 
