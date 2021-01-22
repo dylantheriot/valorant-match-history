@@ -85,7 +85,8 @@ class ValorantAPI(object):
     headers = {
       'Authorization': f'Bearer {self.access_token}',
       'X-Riot-Entitlements-JWT': f'{self.entitlements_token}',
-      'X-Forwarded-For': self.client_ip
+      'X-Forwarded-For': self.client_ip,
+      'X-Riot-ClientPlatform': "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9"
     }
     r = requests.get(f'https://pd.{self.region}.a.pvp.net/mmr/v1/players/{self.user_info}/competitiveupdates?startIndex=0&endIndex=20', headers=headers, cookies=self.cookies)
 
