@@ -16,11 +16,7 @@ limiter = Limiter(
 # Gives competitive movement, game outcome, and associated colors
 match_movement_hash = {
   'INCREASE': ['Increase', 'Victory', 'green', 'rgba(52,211,153,1)'],
-  'MINOR_INCREASE': ['Minor Increase', 'Victory', 'green', 'rgba(52,211,153,1)'],
-  'MAJOR_INCREASE': ['Major Increase', 'Victory', 'green', 'rgba(52,211,153,1)'],
   'DECREASE': ['Decrease', 'Defeat', 'red', 'rgba(248,113,113,1)'],
-  'MAJOR_DECREASE': ['Major Decrease', 'Defeat', 'red', 'rgba(248,113,113,1)'],
-  'MINOR_DECREASE': ['Minor Decrease', 'Defeat', 'red', 'rgba(248,113,113,1)'],
   'PROMOTED': ['Promoted', 'Victory', 'green', 'rgba(52,211,153,1)'],
   'DEMOTED': ['Demoted', 'Defeat', 'red', 'rgba(248,113,113,1)'],
   'STABLE': ['Stable', 'Draw', 'gray', 'rgba(156, 163, 175, 1)' ]
@@ -84,15 +80,31 @@ def display_match_history():
   except:
     print('Cannot get match history.')
     return render_template('error.html', error='Cannot get match history.')
-  print(json_res)
+  # print(json_res)
   # Attempt to parse through match history data
   try:
     posts = []
     for match in json_res['Matches']:
       # print(match)
-      if match['CompetitiveMovement'] == 'MOVEMENT_UNKNOWN':
-        continue
-      match_movement, game_outcome, main_color, gradient_color = match_movement_hash[match['CompetitiveMovement']]
+      if match['TierBeforeUpdate'] != match['TierAfterUpdate']:
+          if match['RankedRatingEarned'] > 0:
+            CompetitiveMovement = 'PROMOTED'
+            match_movement, game_outcome, main_color, gradient_color = match_movement_hash[CompetitiveMovement]
+          elif match['RankedRatingEarned'] < 0:
+            CompetitiveMovement = 'DEMOTED'
+            match_movement, game_outcome, main_color, gradient_color = match_movement_hash[CompetitiveMovement]
+          elif match['RankedRatingEarned'] == 0:
+            CompetitiveMovement = 'STABLE'
+            match_movement, game_outcome, main_color, gradient_color = match_movement_hash[CompetitiveMovement]
+      elif match['TierBeforeUpdate'] == match['TierAfterUpdate']:
+          if match['RankedRatingEarned'] > 0:
+            CompetitiveMovement = 'INCREASE'
+            match_movement, game_outcome, main_color, gradient_color = match_movement_hash[CompetitiveMovement]
+          elif match['RankedRatingEarned'] < 0:
+            CompetitiveMovement = 'DECREASE'
+            match_movement, game_outcome, main_color, gradient_color = match_movement_hash[CompetitiveMovement]
+          elif match['RankedRatingEarned'] == 0:
+            continue
       lp_change = ''
 
       game_map = 'images/maps/' + maps_hash[match['MapID']] + '.png'
@@ -106,9 +118,9 @@ def display_match_history():
       after = match['RankedRatingAfterUpdate']
 
       # calculate lp change, TODO: do this more efficiently
-      if match['CompetitiveMovement'] == 'PROMOTED':
+      if CompetitiveMovement == 'PROMOTED':
         lp_change = '+' + str(after + 100 - before)
-      elif match['CompetitiveMovement'] == 'DEMOTED':
+      elif CompetitiveMovement == 'DEMOTED':
         lp_change = '-' + str(before + 100 - after)
       else:
         if before < after:
@@ -132,7 +144,7 @@ def display_match_history():
 
       posts.append(match_data)
 
-    print(posts)
+    # print(posts)
     return render_template('match_history.html', posts=posts, name=valorant.game_name, title='VALORANTELO - Match History')
   except:
     print('Error parsing match history data.')
