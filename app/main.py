@@ -29,6 +29,8 @@ maps_hash = {
   '/Game/Maps/Ascent/Ascent': 'ascent',
   '/Game/Maps/Port/Port': 'icebox',
   '/Game/Maps/Triad/Triad': 'haven',
+  '/Game/Maps/Foxtrot/Foxtrot': 'breeze',
+  '/Game/Maps/Canyon/Canyon': 'fracture',
   '': 'unknown'
 }
 
