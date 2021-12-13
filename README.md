@@ -34,9 +34,4 @@ You can follow along with the **VIDEO TUTORIAL** [here](https://youtu.be/56D9lH0
 
 
 ## Notes
-Inspired from https://github.com/RumbleMike/ValorantRankedPoints and https://gist.github.com/Luc1412/1f93257a2a808679ff014f258db6c35b
-
-Hosted at https://valorantelo.gg
-
-## Alternatives
-If you are looking for an alternative, please checkout RumbleMikee's version (we are not affiliated, but this site was based off of his project). You can learn more about his project [here](https://twitter.com/RumbleMikee/status/1341427684145033217?s=20)
+Inspired from https://gist.github.com/Luc1412/1f93257a2a808679ff014f258db6c35b
