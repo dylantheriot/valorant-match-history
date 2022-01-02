@@ -17,9 +17,11 @@ limiter = Limiter(
 match_movement_hash = {
   'INCREASE': ['Increase', 'Victory', 'green', 'rgba(52,211,153,1)'],
   'DECREASE': ['Decrease', 'Defeat', 'red', 'rgba(248,113,113,1)'],
+  'DODGED_DECREASE': ['Decrease', 'Dodged', 'red', 'rgba(248,113,113,1)'],
   'PROMOTED': ['Promoted', 'Victory', 'green', 'rgba(52,211,153,1)'],
   'DEMOTED': ['Demoted', 'Defeat', 'red', 'rgba(248,113,113,1)'],
-  'STABLE': ['Stable', 'Draw', 'gray', 'rgba(156, 163, 175, 1)' ]
+  'DODGED_DEMOTED': ['Demoted', 'Dodged', 'red', 'rgba(248,113,113,1)'],
+  'STABLE': ['Stable', 'Draw', 'gray', 'rgba(156, 163, 175, 1)']
 }
 
 # Gives map name
@@ -89,7 +91,10 @@ def display_match_history():
     for match in json_res['Matches']:
       # print(match)
       if match['TierBeforeUpdate'] != match['TierAfterUpdate']:
-          if match['RankedRatingEarned'] > 0:
+          if match['MapID'] == "":
+            CompetitiveMovement = 'DODGED_DEMOTED'
+            match_movement, game_outcome, main_color, gradient_color = match_movement_hash[CompetitiveMovement]
+          elif match['RankedRatingEarned'] > 0:
             CompetitiveMovement = 'PROMOTED'
             match_movement, game_outcome, main_color, gradient_color = match_movement_hash[CompetitiveMovement]
           elif match['RankedRatingEarned'] < 0:
@@ -99,7 +104,10 @@ def display_match_history():
             CompetitiveMovement = 'STABLE'
             match_movement, game_outcome, main_color, gradient_color = match_movement_hash[CompetitiveMovement]
       elif match['TierBeforeUpdate'] == match['TierAfterUpdate']:
-          if match['RankedRatingEarned'] > 0:
+          if match['MapID'] == "":
+            CompetitiveMovement = 'DODGED_DECREASE'
+            match_movement, game_outcome, main_color, gradient_color = match_movement_hash[CompetitiveMovement]
+          elif match['RankedRatingEarned'] > 0:
             CompetitiveMovement = 'INCREASE'
             match_movement, game_outcome, main_color, gradient_color = match_movement_hash[CompetitiveMovement]
           elif match['RankedRatingEarned'] < 0:
