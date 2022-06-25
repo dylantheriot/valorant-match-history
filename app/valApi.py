@@ -1,6 +1,15 @@
+from requests.adapters import HTTPAdapter
+from urllib3 import poolmanager
 import requests
+import ssl
 import json
 import urllib.parse
+
+class TLSAdapter(requests.adapters.HTTPAdapter):
+    def init_poolmanager(self, connections, maxsize, block=False):
+        ctx = ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
+        ctx.set_ciphers('DEFAULT@SECLEVEL=1')
+        self.poolmanager = poolmanager.PoolManager(num_pools=connections, maxsize=maxsize, block=block, ssl_version=ssl.PROTOCOL_TLSv1_2, ssl_context=ctx)
 
 class ValorantAPI(object):
   access_token = None
@@ -13,7 +22,17 @@ class ValorantAPI(object):
     self.region = region
     self.client_ip = client_ip
 
-    self.cookies = self.get_cookies()
+    headers = {
+        'Content-Type': 'application/json',
+        'User-Agent': 'RiotClient/51.0.0.4429735.4381201 rso-auth (Windows;10;;Professional, x64)',
+        'Accept': 'application/json, text/plain, */*'
+    }
+
+    self.session = requests.session()
+    self.session.mount('https://', TLSAdapter())
+    self.session.headers = headers
+
+    self.get_cookies()
 
     self.access_token = self.get_access_token()
 
@@ -23,20 +42,19 @@ class ValorantAPI(object):
 
   def get_cookies(self):
     data = {
-    'client_id': 'play-valorant-web-prod',
-    'nonce': '1',
-    'redirect_uri': 'https://playvalorant.com/',
-    'response_type': 'token id_token',
-    'scope': 'account openid',
+      'client_id': 'play-valorant-web-prod',
+      'nonce': '1',
+      'redirect_uri': 'https://playvalorant.com/opt_in',
+      'response_type': 'token id_token',
+      'scope': 'account openid'
     }
     headers = {
-      'X-Forwarded-For': self.client_ip
+        'Content-Type': 'application/json',
+        'User-Agent': 'RiotClient/51.0.0.4429735.4381201 rso-auth (Windows;10;;Professional, x64)',
+        'Accept': 'application/json, text/plain, */*',
+        'X-Forwarded-For': self.client_ip
     }
-    r = requests.post('https://auth.riotgames.com/api/v1/authorization', headers=headers, json=data)
-
-    cookies = r.cookies
-
-    return cookies
+    self.session.post('https://auth.riotgames.com/api/v1/authorization', headers=headers, json=data)
 
   def get_access_token(self):
     data = {
@@ -45,22 +63,28 @@ class ValorantAPI(object):
       'password': self.password
     }
     headers = {
+      'Content-Type': 'application/json',
+      'User-Agent': 'RiotClient/51.0.0.4429735.4381201 rso-auth (Windows;10;;Professional, x64)',
+      'Accept': 'application/json, text/plain, */*',
       'X-Forwarded-For': self.client_ip
     }
-    r = requests.put('https://auth.riotgames.com/api/v1/authorization', headers=headers, json=data, cookies=self.cookies)
+    r = self.session.put('https://auth.riotgames.com/api/v1/authorization', headers=headers, json=data)
+    
     uri = r.json()['response']['parameters']['uri']
     jsonUri = urllib.parse.parse_qs(uri)
 
-    access_token = jsonUri['https://playvalorant.com/#access_token'][0]
-
+    access_token = jsonUri['https://playvalorant.com/opt_in#access_token'][0]
     return access_token
 
   def get_entitlements_token(self):
     headers = {
       'Authorization': f'Bearer {self.access_token}',
+      'Content-Type': 'application/json',
+      'User-Agent': 'RiotClient/51.0.0.4429735.4381201 rso-auth (Windows;10;;Professional, x64)',
+      'Accept': 'application/json, text/plain, */*',
       'X-Forwarded-For': self.client_ip
     }
-    r = requests.post('https://entitlements.auth.riotgames.com/api/token/v1', headers=headers, json={}, cookies=self.cookies)
+    r = self.session.post('https://entitlements.auth.riotgames.com/api/token/v1', headers=headers, json={})
 
     entitlements_token = r.json()['entitlements_token']
 
@@ -69,10 +93,13 @@ class ValorantAPI(object):
   def get_user_info(self):
     headers = {
       'Authorization': f'Bearer {self.access_token}',
+      'Content-Type': 'application/json',
+      'User-Agent': 'RiotClient/51.0.0.4429735.4381201 rso-auth (Windows;10;;Professional, x64)',
+      'Accept': 'application/json, text/plain, */*',
       'X-Forwarded-For': self.client_ip
     }
 
-    r = requests.post('https://auth.riotgames.com/userinfo', headers=headers, json={}, cookies=self.cookies)
+    r = self.session.post('https://auth.riotgames.com/userinfo', headers=headers, json={})
     jsonData = r.json()
     user_info = jsonData['sub']
     name = jsonData['acct']['game_name']
@@ -84,11 +111,14 @@ class ValorantAPI(object):
   def get_match_history(self):
     headers = {
       'Authorization': f'Bearer {self.access_token}',
-      'X-Riot-Entitlements-JWT': f'{self.entitlements_token}',
+      'Content-Type': 'application/json',
+      'User-Agent': 'RiotClient/51.0.0.4429735.4381201 rso-auth (Windows;10;;Professional, x64)',
+      'Accept': 'application/json, text/plain, */*',
       'X-Forwarded-For': self.client_ip,
-      'X-Riot-ClientPlatform': "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9"
+      'X-Riot-Entitlements-JWT': f'{self.entitlements_token}',
+      'X-Riot-ClientPlatform': "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9",
     }
-    r = requests.get(f'https://pd.{self.region}.a.pvp.net/mmr/v1/players/{self.user_info}/competitiveupdates?startIndex=0&endIndex=20', headers=headers, cookies=self.cookies)
+    r = self.session.get(f'https://pd.{self.region}.a.pvp.net/mmr/v1/players/{self.user_info}/competitiveupdates?startIndex=0&endIndex=20', headers=headers)
 
     jsonData = r.json()
 

@@ -33,6 +33,7 @@ maps_hash = {
   '/Game/Maps/Triad/Triad': 'haven',
   '/Game/Maps/Foxtrot/Foxtrot': 'breeze',
   '/Game/Maps/Canyon/Canyon': 'fracture',
+  '/Game/Maps/Pitt/Pitt': 'pearl',
   '': 'unknown'
 }
 
