@@ -8,9 +8,9 @@ from flask_limiter.util import get_remote_address
 app = Flask(__name__)
 
 limiter = Limiter(
-    app,
-    key_func=get_remote_address,
-    default_limits=["30 per hour", "15 per minute", "2 per second"],
+  app,
+  key_func=get_remote_address,
+  default_limits=["30 per hour", "15 per minute", "2 per second"],
 )
 
 # Gives competitive movement, game outcome, and associated colors
@@ -39,16 +39,16 @@ maps_hash = {
 
 @app.before_request
 def before_request():
-    scheme = request.headers.get('X-Forwarded-Proto')
-    if scheme and scheme == 'http' and request.url.startswith('http://'):
-        url = request.url.replace('http://', 'https://', 1)
-        code = 301
-        return redirect(url, code=code)
+  scheme = request.headers.get('X-Forwarded-Proto')
+  if scheme and scheme == 'http' and request.url.startswith('http://'):
+    url = request.url.replace('http://', 'https://', 1)
+    code = 301
+    return redirect(url, code=code)
 
 @app.errorhandler(429)
 def ratelimit_handler(e):
-    print('Rate limit has been exceeded: %s' % e.description)
-    return "<h1>Rate limit exceeded. Please try again later.</h1>", 429
+  print('Rate limit has been exceeded: %s' % e.description)
+  return "<h1>Rate limit exceeded. Please try again later.</h1>", 429
 
 @app.route('/')
 def home():
@@ -71,7 +71,7 @@ def display_match_history():
     client_ip = request.remote_addr
 
   print('client ip 1:', request.headers.getlist('X-Forwarded-For'))
-    
+
   # Attempt login
   try:
     valorant = ValorantAPI(username, password, region, client_ip)
@@ -92,36 +92,36 @@ def display_match_history():
     for match in json_res['Matches']:
       # print(match)
       if match['TierBeforeUpdate'] != match['TierAfterUpdate']:
-          if match['MapID'] == "":
-            CompetitiveMovement = 'DODGED_DEMOTED'
-            match_movement, game_outcome, main_color, gradient_color = match_movement_hash[CompetitiveMovement]
-          elif match['RankedRatingEarned'] > 0:
-            CompetitiveMovement = 'PROMOTED'
-            match_movement, game_outcome, main_color, gradient_color = match_movement_hash[CompetitiveMovement]
-          elif match['RankedRatingEarned'] < 0:
-            CompetitiveMovement = 'DEMOTED'
-            match_movement, game_outcome, main_color, gradient_color = match_movement_hash[CompetitiveMovement]
-          elif match['RankedRatingEarned'] == 0:
-            CompetitiveMovement = 'STABLE'
-            match_movement, game_outcome, main_color, gradient_color = match_movement_hash[CompetitiveMovement]
+        if match['MapID'] == "":
+          CompetitiveMovement = 'DODGED_DEMOTED'
+          match_movement, game_outcome, main_color, gradient_color = match_movement_hash[CompetitiveMovement]
+        elif match['RankedRatingEarned'] > 0:
+          CompetitiveMovement = 'PROMOTED'
+          match_movement, game_outcome, main_color, gradient_color = match_movement_hash[CompetitiveMovement]
+        elif match['RankedRatingEarned'] < 0:
+          CompetitiveMovement = 'DEMOTED'
+          match_movement, game_outcome, main_color, gradient_color = match_movement_hash[CompetitiveMovement]
+        elif match['RankedRatingEarned'] == 0:
+          CompetitiveMovement = 'STABLE'
+          match_movement, game_outcome, main_color, gradient_color = match_movement_hash[CompetitiveMovement]
       elif match['TierBeforeUpdate'] == match['TierAfterUpdate']:
-          if match['MapID'] == "":
-            CompetitiveMovement = 'DODGED_DECREASE'
-            match_movement, game_outcome, main_color, gradient_color = match_movement_hash[CompetitiveMovement]
-          elif match['RankedRatingEarned'] > 0:
-            CompetitiveMovement = 'INCREASE'
-            match_movement, game_outcome, main_color, gradient_color = match_movement_hash[CompetitiveMovement]
-          elif match['RankedRatingEarned'] < 0:
-            CompetitiveMovement = 'DECREASE'
-            match_movement, game_outcome, main_color, gradient_color = match_movement_hash[CompetitiveMovement]
-          elif match['RankedRatingEarned'] == 0:
-            continue
+        if match['MapID'] == "":
+          CompetitiveMovement = 'DODGED_DECREASE'
+          match_movement, game_outcome, main_color, gradient_color = match_movement_hash[CompetitiveMovement]
+        elif match['RankedRatingEarned'] > 0:
+          CompetitiveMovement = 'INCREASE'
+          match_movement, game_outcome, main_color, gradient_color = match_movement_hash[CompetitiveMovement]
+        elif match['RankedRatingEarned'] < 0:
+          CompetitiveMovement = 'DECREASE'
+          match_movement, game_outcome, main_color, gradient_color = match_movement_hash[CompetitiveMovement]
+        elif match['RankedRatingEarned'] == 0:
+          continue
       lp_change = ''
 
       game_map = 'images/maps/' + maps_hash[match['MapID']] + '.png'
 
       tier = 'images/ranks/' + str(match['TierAfterUpdate']) + '.png'
-      
+
       epoch_time = match['MatchStartTime'] // 1000
       date = time.strftime('%m-%d-%Y', time.localtime(epoch_time))
 
@@ -169,4 +169,3 @@ def view_example_data():
 74, 'game_outcome': 'Defeat', 'movement': 'Decrease', 'tier': 'images/ranks/22.png', 'date': '12-21-2020', 'game_map': 'images/maps/bind.png', 'main_color': 'red', 'gradient_color': 'rgba(248,113,113,1)'}, {'lp_change': '+24', 'current_lp': 89, 'game_outcome': 'Victory', 'movement': 'Increase', 'tier': 'images/ranks/22.png', 'date': '12-21-2020', 'game_map': 'images/maps/split.png', 'main_color': 'green', 'gradient_color': 'rgba(52,211,153,1)'}, {'lp_change': '-14', 'current_lp': 65, 'game_outcome': 'Defeat', 'movement': 'Decrease', 'tier': 'images/ranks/22.png', 'date': '12-21-2020', 'game_map': 'images/maps/ascent.png', 
 'main_color': 'red', 'gradient_color': 'rgba(248,113,113,1)'}, {'lp_change': '+23', 'current_lp': 79, 'game_outcome': 'Victory', 'movement': 'Increase', 'tier': 'images/ranks/22.png', 'date': '12-21-2020', 'game_map': 'images/maps/split.png', 'main_color': 'green', 'gradient_color': 'rgba(52,211,153,1)'}, {'lp_change': '+12', 'current_lp': 56, 'game_outcome': 'Victory', 'movement': 'Increase', 'tier': 'images/ranks/22.png', 'date': '12-21-2020', 'game_map': 'images/maps/icebox.png', 'main_color': 'green', 'gradient_color': 'rgba(52,211,153,1)'}, {'lp_change': '+9', 'current_lp': 44, 'game_outcome': 'Victory', 'movement': 'Minor Increase', 'tier': 'images/ranks/22.png', 'date': '12-21-2020', 'game_map': 'images/maps/icebox.png', 'main_color': 'green', 'gradient_color': 'rgba(52,211,153,1)'}]
   return render_template('match_history.html', posts=example_data, name='Example #RIOT', title='VALORANTELO - Example')
-

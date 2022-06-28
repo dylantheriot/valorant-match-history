@@ -6,10 +6,10 @@ import json
 import urllib.parse
 
 class TLSAdapter(requests.adapters.HTTPAdapter):
-    def init_poolmanager(self, connections, maxsize, block=False):
-        ctx = ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
-        ctx.set_ciphers('DEFAULT@SECLEVEL=1')
-        self.poolmanager = poolmanager.PoolManager(num_pools=connections, maxsize=maxsize, block=block, ssl_version=ssl.PROTOCOL_TLSv1_2, ssl_context=ctx)
+  def init_poolmanager(self, connections, maxsize, block=False):
+    ctx = ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
+    ctx.set_ciphers('DEFAULT@SECLEVEL=1')
+    self.poolmanager = poolmanager.PoolManager(num_pools=connections, maxsize=maxsize, block=block, ssl_version=ssl.PROTOCOL_TLSv1_2, ssl_context=ctx)
 
 class ValorantAPI(object):
   access_token = None
@@ -23,9 +23,9 @@ class ValorantAPI(object):
     self.client_ip = client_ip
 
     headers = {
-        'Content-Type': 'application/json',
-        'User-Agent': 'RiotClient/51.0.0.4429735.4381201 rso-auth (Windows;10;;Professional, x64)',
-        'Accept': 'application/json, text/plain, */*'
+      'Content-Type': 'application/json',
+      'User-Agent': 'RiotClient/51.0.0.4429735.4381201 rso-auth (Windows;10;;Professional, x64)',
+      'Accept': 'application/json, text/plain, */*'
     }
 
     self.session = requests.session()
@@ -49,10 +49,10 @@ class ValorantAPI(object):
       'scope': 'account openid'
     }
     headers = {
-        'Content-Type': 'application/json',
-        'User-Agent': 'RiotClient/51.0.0.4429735.4381201 rso-auth (Windows;10;;Professional, x64)',
-        'Accept': 'application/json, text/plain, */*',
-        'X-Forwarded-For': self.client_ip
+      'Content-Type': 'application/json',
+      'User-Agent': 'RiotClient/51.0.0.4429735.4381201 rso-auth (Windows;10;;Professional, x64)',
+      'Accept': 'application/json, text/plain, */*',
+      'X-Forwarded-For': self.client_ip
     }
     self.session.post('https://auth.riotgames.com/api/v1/authorization', headers=headers, json=data)
 
@@ -69,7 +69,7 @@ class ValorantAPI(object):
       'X-Forwarded-For': self.client_ip
     }
     r = self.session.put('https://auth.riotgames.com/api/v1/authorization', headers=headers, json=data)
-    
+
     uri = r.json()['response']['parameters']['uri']
     jsonUri = urllib.parse.parse_qs(uri)
 
