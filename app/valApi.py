@@ -24,7 +24,7 @@ class ValorantAPI(object):
 
     headers = {
       'Content-Type': 'application/json',
-      'User-Agent': 'RiotClient/51.0.0.4429735.4381201 rso-auth (Windows;10;;Professional, x64)',
+      'User-Agent': 'RiotClient/56.0.0.4578455.4552318 rso-auth (Windows;10;;Professional, x64)',
       'Accept': 'application/json, text/plain, */*'
     }
 
