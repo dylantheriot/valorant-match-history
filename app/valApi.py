@@ -24,7 +24,7 @@ class ValorantAPI(object):
 
     headers = {
       'Content-Type': 'application/json',
-      'User-Agent': 'RiotClient/56.0.0.4578455.4552318 rso-auth (Windows;10;;Professional, x64)',
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36',
       'Accept': 'application/json, text/plain, */*'
     }
 
@@ -50,7 +50,7 @@ class ValorantAPI(object):
     }
     headers = {
       'Content-Type': 'application/json',
-      'User-Agent': 'RiotClient/51.0.0.4429735.4381201 rso-auth (Windows;10;;Professional, x64)',
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36',
       'Accept': 'application/json, text/plain, */*',
       'X-Forwarded-For': self.client_ip
     }
@@ -64,7 +64,7 @@ class ValorantAPI(object):
     }
     headers = {
       'Content-Type': 'application/json',
-      'User-Agent': 'RiotClient/51.0.0.4429735.4381201 rso-auth (Windows;10;;Professional, x64)',
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36',
       'Accept': 'application/json, text/plain, */*',
       'X-Forwarded-For': self.client_ip
     }
@@ -80,7 +80,7 @@ class ValorantAPI(object):
     headers = {
       'Authorization': f'Bearer {self.access_token}',
       'Content-Type': 'application/json',
-      'User-Agent': 'RiotClient/51.0.0.4429735.4381201 rso-auth (Windows;10;;Professional, x64)',
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36',
       'Accept': 'application/json, text/plain, */*',
       'X-Forwarded-For': self.client_ip
     }
@@ -94,7 +94,7 @@ class ValorantAPI(object):
     headers = {
       'Authorization': f'Bearer {self.access_token}',
       'Content-Type': 'application/json',
-      'User-Agent': 'RiotClient/51.0.0.4429735.4381201 rso-auth (Windows;10;;Professional, x64)',
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36',
       'Accept': 'application/json, text/plain, */*',
       'X-Forwarded-For': self.client_ip
     }
@@ -112,7 +112,7 @@ class ValorantAPI(object):
     headers = {
       'Authorization': f'Bearer {self.access_token}',
       'Content-Type': 'application/json',
-      'User-Agent': 'RiotClient/51.0.0.4429735.4381201 rso-auth (Windows;10;;Professional, x64)',
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36',
       'Accept': 'application/json, text/plain, */*',
       'X-Forwarded-For': self.client_ip,
       'X-Riot-Entitlements-JWT': f'{self.entitlements_token}',
