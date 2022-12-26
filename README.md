@@ -1,4 +1,4 @@
-## If you downloaded this project BEFORE 09/25/2022, you will need to redownload the code/zip and rerun installation for it to work again.
+## If you downloaded this project BEFORE 12/26/2022, you will need to redownload the code/zip and rerun installation for it to work again.
 
 # VALORANT ELO TRACKER
 
